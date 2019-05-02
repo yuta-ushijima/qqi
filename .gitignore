@@ -16,6 +16,7 @@
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
+erd.pdf
 
 /node_modules
 /yarn-error.log
