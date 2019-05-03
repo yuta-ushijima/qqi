@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :comment do
-    body { "MyText" }
-    user { nil }
-    article { nil }
+    body { Faker::Books::Dune.saying }
+    article
+    user
   end
 end
