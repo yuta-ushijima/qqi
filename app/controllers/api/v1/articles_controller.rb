@@ -18,6 +18,11 @@ class Api::V1::ArticlesController < ApplicationController
     render json: @article
   end
 
+  def update
+    @article.update!(article_params)
+    render json: @article
+  end
+
   private
 
     def set_article
