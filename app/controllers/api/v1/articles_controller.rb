@@ -23,6 +23,11 @@ class Api::V1::ArticlesController < ApplicationController
     render json: @article
   end
 
+  def destroy
+    @article.destroy!
+    render json: {}, status: 204
+  end
+
   private
 
     def set_article
