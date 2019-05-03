@@ -56,4 +56,43 @@ RSpec.describe "Api::V1::Articles", type: :request do
       end
     end
   end
+
+  describe "GET /api/v1/articles/:id" do
+    subject { get api_v1_article_path(article_id) }
+
+    context "指定した記事idが見つからないとき" do
+      let!(:article_id) { 1000 }
+      it "エラーが返ってくること" do
+        expect { subject }.to raise_error ActiveRecord::RecordNotFound
+      end
+    end
+
+    context "指定した記事idが見つかったとき" do
+      let!(:article) { create(:article, user_id: user_id, post_status: :published) }
+      let(:article_id) { article.id }
+      let!(:user) { create(:user) }
+      let(:user_id) { user.id }
+      it "記事の値が取得できること" do
+        subject
+        res = JSON.parse(response.body)
+        expect(res["data"]["attributes"]["title"]).to eq(article.title)
+        expect(res["data"]["attributes"]["body"]).to eq(article.body)
+        expect(res["data"]["attributes"]["user_id"]).to eq(user.id)
+      end
+    end
+
+    context "ユーザーがログインしているとき" do
+      let!(:article) { create(:article, user_id: current_user_id) }
+      let(:article_id) { article.id }
+      let!(:current_user) { create(:user) }
+      let(:current_user_id) { current_user.id }
+      it "自分の下書き記事のレコードが取得できること" do
+        subject
+        res = JSON.parse(response.body)
+        expect(res["data"]["attributes"]["title"]).to eq(article.title)
+        expect(res["data"]["attributes"]["body"]).to eq(article.body)
+        expect(res["data"]["attributes"]["user_id"]).to eq(current_user_id)
+      end
+    end
+  end
 end
