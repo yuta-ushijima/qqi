@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 2019_05_03_050027) do
     t.integer "post_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "users_id"
-    t.index ["users_id"], name: "index_articles_on_users_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2019_05_03_050027) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "articles", "users", column: "users_id"
+  add_foreign_key "articles", "users"
   add_foreign_key "comments", "articles"
   add_foreign_key "comments", "users"
 end
