@@ -1,8 +1,14 @@
 FactoryBot.define do
   factory :user do
-    name { "MyString" }
-    email { "MyString" }
-    password { "MyString" }
-    article { nil }
+    _account = Faker::Internet.username
+
+    sequence(:name) {|n| "#{n}_#{_name}" }
+    sequence(:email) {|n| Faker::Internet.email("#{n}_#{_name}") }
+    password { Faker::Internet.password }
+
+    trait :with_comments do
+      # association :user_detail, factory: :user_detailと同義
+      comments
+    end
   end
 end
