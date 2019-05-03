@@ -33,4 +33,27 @@ RSpec.describe "Api::V1::Articles", type: :request do
     end
   end
 
+  describe "POST /api/v1/articles" do
+    subject { post(api_v1_articles_path, params: params) }
+
+    context "ユーザーがログインしているとき" do
+      let(:current_user) { create(:user) }
+      let(:params) { { article: attributes_for(:article, user_id: current_user.id) } }
+      it "記事のレコードが作成できること" do
+        expect { subject }.to change { Article.count }.by(1)
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "ユーザーがログインしていないとき" do
+      let(:current_user) { nil }
+      let(:params) { { article: attributes_for(:article) } }
+      it "エラーが返ってくること" do
+        subject
+        res = JSON.parse(response.body)
+        expect(res["errors"]["status"]).to eq(403)
+        expect(res["errors"]["messages"]).to eq("ログインしてください")
+      end
+    end
+  end
 end
