@@ -20,7 +20,7 @@ gem 'webpacker'
 
 gem 'devise'
 gem 'devise_token_auth', github: 'lynndylanhurley/devise_token_auth'
-gem 'rack-cors'
+gem 'rack-cors', require: 'rack/cors'
 gem 'devise-i18n'
 gem 'rails-i18n'
 
