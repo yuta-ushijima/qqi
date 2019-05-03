@@ -15,10 +15,11 @@ ActiveRecord::Schema.define(version: 2019_05_03_050027) do
   create_table "articles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "body"
-    t.integer "post_status"
+    t.integer "post_status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.index ["post_status"], name: "index_articles_on_post_status"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 

@@ -3,7 +3,7 @@ class CreateArticles < ActiveRecord::Migration[5.2]
     create_table :articles do |t|
       t.string :title
       t.text :body
-      t.integer :post_status
+      t.integer :post_status, index: true , null: false, default: 0
 
       t.timestamps
     end
