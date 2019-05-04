@@ -85,6 +85,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
 
           res = JSON.parse(response.body)
           expect(res["success"]).to be_truthy
+          expect(current_user.reload.tokens.count).to eq(0)
           expect(response).to have_http_status(:ok)
         end
       end

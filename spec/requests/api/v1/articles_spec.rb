@@ -46,8 +46,8 @@ RSpec.describe "Api::V1::Articles", type: :request do
     end
 
     context "ユーザーがログインしていないとき" do
-      let(:current_user) { nil }
-      let(:params) { { article: attributes_for(:article) } }
+      let!( :current_user) { nil }
+      let!(:params) { { article: attributes_for(:article) } }
       it "エラーが返ってくること" do
         subject
         res = JSON.parse(response.body)

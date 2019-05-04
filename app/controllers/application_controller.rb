@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   include DeviseTokenAuth::Concerns::SetUserByToken
   skip_before_action :verify_authenticity_token
-  # before_action :authenticate_user!
 
   def current_user
     @current_user ||= User.first
