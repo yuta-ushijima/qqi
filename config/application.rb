@@ -30,5 +30,16 @@ module QiitaClone2019
                        request_specs: true
     end
     config.api_only = true
+
+    # cors setting for devise_token_auth
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*',
+                 headers: :any,
+                 expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+                 methods: [:get, :post, :options, :delete, :put]
+      end
+    end
   end
 end
