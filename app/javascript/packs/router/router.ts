@@ -8,7 +8,7 @@ Vue.use(VueRouter)
 export default new VueRouter({
   mode: 'history',
   routes: [
-    // { path: '/', component: ArticlesContainer },
-    { path: '/', component: LoginContainer },
+    { path: '/articles', component: ArticlesContainer },
+    { path: '/sign_in', component: LoginContainer },
   ],
 })

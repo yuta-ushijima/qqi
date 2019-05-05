@@ -4,24 +4,57 @@
     <form class="login__form">
       <div>
         <label>メールアドレス</label>
-        <input type="text" name="email" placeholder="メールアドレスを入力">
+        <input type="text" name="email" placeholder="メールアドレスを入力" v-model="email">
       </div>
       <div>
         <label>パスワード</label>
-        <input type="password" name="password" placeholder="パスワードを入力">
+        <input type="password" name="password" placeholder="パスワードを入力" v-model="password">
       </div>
-      <button @click="login">ログイン</button>
+      <button @click="signIn()">ログイン</button>
     </form>
   </div>
 </template>
 
 <script lang="ts">
   import axios from "axios"
-  import { Vue, Component } from "vue-property-decorator"
+  import { Vue, Component, Prop, Emit } from "vue-property-decorator"
+
+  /* devise-auth-tokenで設定したヘッダー情報 */
+  const config = {
+    headers: {
+      'Authorization': 'Bearer',
+      'Access-Control-Allow-Origin': '*',
+      'access-token': localStorage.getItem('access-token'),
+      'client': localStorage.getItem('client'),
+      'uid': localStorage.getItem('uid')
+    }
+  }
 
   @Component
   export default class LoginContainer extends Vue {
+    // email: string = '';
+    // password: string = '';
+    public email: string = '';
+    public password: string = '';
 
+    // @Emit()
+    // public input(value: string) {}
+
+
+    async signIn(): Promise<void> {
+      const params = {
+        email: this.email,
+        password: this.password
+      }
+      console.log(params);
+      await axios.post("/api/v1/auth/sign_in", params).then((response) => {
+        alert(`ログインしました ${response}`)
+        console.log(response)
+        this.$router.push({path: '/articles'})
+      }).catch(error => {
+        alert('メールアドレスまたはパスワードが正しくありません')
+      })
+    }
   }
 </script>
 
