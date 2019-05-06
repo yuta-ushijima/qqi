@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h2 class="heading">ログイン</h2>
-    <form class="login__form">
+    <form class="login__form" v-on:submit.prevent="signIn">
       <div>
         <label>メールアドレス</label>
         <input type="text" name="email" placeholder="メールアドレスを入力" v-model="email">
@@ -10,48 +10,33 @@
         <label>パスワード</label>
         <input type="password" name="password" placeholder="パスワードを入力" v-model="password">
       </div>
-      <button @click="signIn()">ログイン</button>
+      <button type="submit">ログイン</button>
     </form>
   </div>
 </template>
 
 <script lang="ts">
   import axios from "axios"
-  import { Vue, Component, Prop, Emit } from "vue-property-decorator"
-
-  /* devise-auth-tokenで設定したヘッダー情報 */
-  const config = {
-    headers: {
-      'Authorization': 'Bearer',
-      'Access-Control-Allow-Origin': '*',
-      'access-token': localStorage.getItem('access-token'),
-      'client': localStorage.getItem('client'),
-      'uid': localStorage.getItem('uid')
-    }
-  }
+  import { Vue, Component } from "vue-property-decorator"
+  import Router from '../router/router'
 
   @Component
   export default class LoginContainer extends Vue {
-    // email: string = '';
-    // password: string = '';
     public email: string = '';
     public password: string = '';
-
-    // @Emit()
-    // public input(value: string) {}
-
 
     async signIn(): Promise<void> {
       const params = {
         email: this.email,
         password: this.password
       }
-      console.log(params);
       await axios.post("/api/v1/auth/sign_in", params).then((response) => {
-        alert(`ログインしました ${response}`)
-        console.log(response)
-        this.$router.push({path: '/articles'})
-      }).catch(error => {
+        // TODO: MyPage実装後にpush先を変更
+        localStorage.accessToken = response.headers.accesstoken
+        localStorage.uid = response.headers.uid
+        localStorage.client = response.headers.client
+        Router.push('/articles')
+      }).catch(() => {
         alert('メールアドレスまたはパスワードが正しくありません')
       })
     }

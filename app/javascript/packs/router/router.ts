@@ -10,5 +10,7 @@ export default new VueRouter({
   routes: [
     { path: '/articles', component: ArticlesContainer },
     { path: '/sign_in', component: LoginContainer },
+    // 存在しないpathが指定された時はrootへredirect
+    { path: '*', redirect: '/'}
   ],
 })
