@@ -43,7 +43,7 @@
   }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   label {
     margin-left: 0;
   }
