@@ -45,6 +45,7 @@
     async signOut(): Promise<void> {
       await axios.delete('/api/v1/auth/sign_out', config).then(() => {
         alert('ログアウトしました')
+        localStorage.clear();
         Router.push('/sign_in')
       }).catch(() => {
         console.log(config);
