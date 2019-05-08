@@ -60,7 +60,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # For devise_token_auth
-  config.action_mailer.default_url_options = { host: 'your-dev-host.dev' }
+  config.action_mailer.default_url_options = { host: 'localhost:9000' }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { address: 'your-dev-host.dev', port: 1025 }
+  config.action_mailer.smtp_settings = { address: '/activation', port: 1025 }
 end
