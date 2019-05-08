@@ -20,7 +20,7 @@
     headers: {
       'Authorization': 'Bearer',
       'Access-Control-Allow-Origin': '*',
-      'accessToken': localStorage.getItem('accessToken'),
+      'access-token': localStorage.getItem('access-token'),
       'client': localStorage.getItem('client'),
       'uid': localStorage.getItem('uid')
     }
