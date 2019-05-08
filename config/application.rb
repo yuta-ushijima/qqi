@@ -37,7 +37,7 @@ module QiitaClone2019
         origins '*'
         resource '*',
                  headers: :any,
-                 expose: ['accessToken', 'expiry', 'tokenType', 'uid', 'client'],
+                 expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
                  methods: [:get, :post, :options, :delete, :put]
       end
     end
