@@ -2,21 +2,8 @@ class ApplicationController < ActionController::Base
   include DeviseTokenAuth::Concerns::SetUserByToken
   skip_before_action :verify_authenticity_token
 
-  def current_user
-    @current_user ||= User.first
-  end
+  alias_method :current_user, :current_api_v1_user
+  alias_method :authenticate_user!, :authenticate_api_v1_user!
+  alias_method :user_signed_in?, :api_v1_user_signed_in?
 
-  def authenticate_user!
-    current_user.nil? ? auth_error : current_user
-  end
-
-  def auth_error
-    render json:
-     {
-       errors: {
-         status: 403,
-         messages: "ログインしてください",
-       },
-     }
-  end
 end
