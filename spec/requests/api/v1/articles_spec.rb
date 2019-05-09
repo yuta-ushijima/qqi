@@ -34,13 +34,22 @@ RSpec.describe "Api::V1::Articles", type: :request do
   end
 
   describe "POST /api/v1/articles" do
-    subject { post(api_v1_articles_path, params: params) }
 
     context "ユーザーがログインしているとき" do
-      let(:current_user) { create(:user) }
+      let!(:current_user) { create(:user) }
       let(:params) { { article: attributes_for(:article, user_id: current_user.id) } }
+      let!(:session_params) { { email: current_user.email,  password: current_user.password } }
       it "記事のレコードが作成できること" do
-        expect { subject }.to change { Article.count }.by(1)
+        sign_in(session_params)
+        post(api_v1_articles_path, params: params, headers: {
+          "uid": response.headers["uid"],
+          "client": response.headers["client"],
+          "access-token": response.headers["access-token"]
+        })
+        res = JSON.parse(response.body)
+        expect(res["data"]["id"]).to eq(Article.last.id.to_s)
+        expect(res["data"]["attributes"]["title"]).to eq(Article.last.title)
+        expect(res["data"]["attributes"]["body"]).to eq(Article.last.body)
         expect(response).to have_http_status(:ok)
       end
     end
@@ -49,10 +58,10 @@ RSpec.describe "Api::V1::Articles", type: :request do
       let!( :current_user) { nil }
       let!(:params) { { article: attributes_for(:article) } }
       it "エラーが返ってくること" do
-        subject
+        post(api_v1_articles_path, params: params)
         res = JSON.parse(response.body)
-        expect(res["errors"]["status"]).to eq(403)
-        expect(res["errors"]["messages"]).to eq("ログインしてください")
+        expect(response).to have_http_status(:unauthorized)
+        expect(res["errors"]).to include("You need to sign in or sign up before continuing.")
       end
     end
   end
@@ -69,9 +78,9 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
     context "指定した記事idが見つかったとき" do
       let!(:article) { create(:article, user_id: user_id, post_status: :published) }
-      let(:article_id) { article.id }
+      let!(:article_id) { article.id }
       let!(:user) { create(:user) }
-      let(:user_id) { user.id }
+      let!(:user_id) { user.id }
       it "記事の値が取得できること" do
         subject
         res = JSON.parse(response.body)
@@ -83,9 +92,9 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
     context "ユーザーがログインしているとき" do
       let!(:article) { create(:article, user_id: current_user_id) }
-      let(:article_id) { article.id }
+      let!(:article_id) { article.id }
       let!(:current_user) { create(:user) }
-      let(:current_user_id) { current_user.id }
+      let!(:current_user_id) { current_user.id }
       it "自分の下書き記事のレコードが取得できること" do
         subject
         res = JSON.parse(response.body)
