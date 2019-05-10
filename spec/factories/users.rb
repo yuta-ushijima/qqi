@@ -8,6 +8,7 @@ FactoryBot.define do
     uid { email }
     confirmed_at { DateTime.now }
     provider { 'email' }
+
     trait :with_comments do
       # association :user_detail, factory: :user_detailと同義
       comments

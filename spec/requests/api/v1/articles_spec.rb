@@ -35,21 +35,23 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
   describe "POST /api/v1/articles" do
 
+    subject do
+      post(
+        api_v1_articles_path,
+        params: article_params,
+        headers: authentication_headers_for(current_user)
+      )
+    end
+
     context "ユーザーがログインしているとき" do
-      let!(:current_user) { create(:user) }
-      let(:params) { { article: attributes_for(:article, user_id: current_user.id) } }
-      let!(:session_params) { { email: current_user.email,  password: current_user.password } }
+      let(:current_user) { create(:user) }
+      let(:article_params) { { article: attributes_for(:article) } }
       it "記事のレコードが作成できること" do
-        sign_in(session_params)
-        post(api_v1_articles_path, params: params, headers: {
-          "uid": response.headers["uid"],
-          "client": response.headers["client"],
-          "access-token": response.headers["access-token"]
-        })
+        expect { subject }.to change { Article.count }.by(1)
         res = JSON.parse(response.body)
         expect(res["data"]["id"]).to eq(Article.last.id.to_s)
         expect(res["data"]["attributes"]["title"]).to eq(Article.last.title)
-        expect(res["data"]["attributes"]["body"]).to eq(Article.last.body)
+        expect(res["data"]["attributes"]["user_id"]).to eq(current_user.id)
         expect(response).to have_http_status(:ok)
       end
     end
