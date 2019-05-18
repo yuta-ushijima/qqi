@@ -1,6 +1,7 @@
 <template>
     <div id="articles-container">
         <button type="submit" @click="signOut">ログアウト</button>
+        <router-link to="/post_articles">投稿する</router-link>
         <ul>
             <li v-for="article in articles" :key="article.id">
                 <div class="article__title">{{article.title}}</div>
@@ -13,7 +14,7 @@
 <script lang="ts">
   import axios from "axios"
   import { Vue, Component } from "vue-property-decorator"
-  import Router from '../router/router'
+  import VueRouter from 'vue-router'
 
   /* devise-auth-tokenで設定したヘッダー情報 */
   const config = {
@@ -25,6 +26,8 @@
       'uid': localStorage.getItem('uid')
     }
   }
+
+  Vue.use(VueRouter);
 
   @Component
   export default class ArticlesContainer extends Vue {
@@ -46,7 +49,7 @@
       await axios.delete('/api/v1/auth/sign_out', config).then(() => {
         alert('ログアウトしました')
         localStorage.clear();
-        Router.push('/sign_in')
+        this.$router.push('/sign_in')
       }).catch(() => {
         console.log(config);
         alert('ログアウトに失敗しました')
@@ -55,7 +58,7 @@
   }
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   li {
     list-style: none;
   }
