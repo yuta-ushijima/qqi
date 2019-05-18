@@ -108,13 +108,19 @@ RSpec.describe "Api::V1::Articles", type: :request do
   end
 
   describe "PATCH /api/v1/articles/:id" do
-    subject { patch api_v1_article_path(article.id, params) }
 
-    let!(:article) { create(:article) }
+    subject do
+      patch(
+        api_v1_article_path(article.id, params),
+        headers: authentication_headers_for(current_user)
+      )
+
+    end
+    let!(:article) { create(:article, user_id: current_user.id) }
 
     context "ユーザーがログインしているとき" do
       let!(:current_user) { create(:user) }
-      let(:params) { { article: { title: Faker::Markdown.headers, created_at: Time.current } } }
+      let!(:params) { { article: { title: Faker::Markdown.headers, created_at: Time.current } } }
       it "任意の記事のレコードが更新できること" do
         expect { subject }.to change { Article.find(article.id).title }.from(article.title).to(params[:article][:title])
         expect { subject }.not_to change { Article.find(article.id).body }
