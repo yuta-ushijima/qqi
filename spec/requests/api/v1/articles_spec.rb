@@ -69,7 +69,11 @@ RSpec.describe "Api::V1::Articles", type: :request do
   end
 
   describe "GET /api/v1/articles/:id" do
-    subject { get api_v1_article_path(article_id) }
+    subject do
+      get(
+        api_v1_article_path(article_id)
+      )
+    end
 
     context "指定した記事idが見つからないとき" do
       let!(:article_id) { 1000 }
@@ -78,17 +82,18 @@ RSpec.describe "Api::V1::Articles", type: :request do
       end
     end
 
-    context "指定した記事idが見つかったとき" do
-      let!(:article) { create(:article, user_id: user_id, post_status: :published) }
+    context "指定した他のユーザーの記事idが見つかったとき" do
+      let!(:article) { create(:article, user_id: other_user_id, post_status: :published) }
       let!(:article_id) { article.id }
-      let!(:user) { create(:user) }
-      let!(:user_id) { user.id }
+      let!(:other_user) { create(:user) }
+      let!(:other_user_id) { other_user.id }
+      let!(:current_user) { create(:user) }
       it "記事の値が取得できること" do
         subject
         res = JSON.parse(response.body)
         expect(res["data"]["attributes"]["title"]).to eq(article.title)
         expect(res["data"]["attributes"]["body"]).to eq(article.body)
-        expect(res["data"]["attributes"]["user_id"]).to eq(user.id)
+        expect(res["data"]["attributes"]["user_id"]).to eq(other_user.id)
       end
     end
 
@@ -98,7 +103,10 @@ RSpec.describe "Api::V1::Articles", type: :request do
       let!(:current_user) { create(:user) }
       let!(:current_user_id) { current_user.id }
       it "自分の下書き記事のレコードが取得できること" do
-        subject
+        get(
+          api_v1_article_path(article_id),
+          headers: authentication_headers_for(current_user)
+        )
         res = JSON.parse(response.body)
         expect(res["data"]["attributes"]["title"]).to eq(article.title)
         expect(res["data"]["attributes"]["body"]).to eq(article.body)
