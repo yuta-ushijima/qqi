@@ -3,7 +3,7 @@ class Api::V1::ArticlesController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update, :destroy]
 
   def index
-    articles = Article.published.includes(:user)
+    articles = Article.published.includes(:user).order(created_at: :desc)
     render json: articles
   end
 
