@@ -49,7 +49,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
       it "記事のレコードが作成できること" do
         expect { subject }.to change { Article.count }.by(1)
         res = JSON.parse(response.body)
-        expect(res["data"]["id"]).to eq(Article.last.id.to_s)
+        expect(res["data"]["attributes"]["body"]).to eq(Article.last.body)
         expect(res["data"]["attributes"]["title"]).to eq(Article.last.title)
         expect(res["data"]["attributes"]["user_id"]).to eq(current_user.id)
         expect(response).to have_http_status(:ok)
