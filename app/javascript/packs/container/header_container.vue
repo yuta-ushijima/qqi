@@ -1,9 +1,12 @@
 <template>
   <header class="header__container">
-    <nav class="header__container--nav">
-      <router-link to="/">QiitaClone2019</router-link>
-      <router-link to="/post_articles">投稿する</router-link>
-      <button type="submit" @click="signOut">ログアウト</button>
+    <nav class="header__container__nav">
+      <router-link to="/" class="nav__brand">QiitaClone2019</router-link>
+      <div class="nav__menu">
+        <router-link to="/post_articles">投稿する</router-link>
+        <router-link to="/sign_in">ログイン</router-link>
+        <button type="submit" @click="signOut">ログアウト</button>
+      </div>
     </nav>
   </header>
 </template>
@@ -42,6 +45,25 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+  .header__container {
+    background-color: cornflowerblue;
+    width: 100%;
+    a {
+      text-decoration:none;
+    }
+    .header__container__nav {
+      display: block;
+      .nav__brand {
+        font-size: 2em;
+        display: block;
+        text-align: left;
+        padding: 20px 0 0 15px;
+      }
+      .nav__menu {
+        text-align: right;
+      }
+    }
+  }
 
 </style>
