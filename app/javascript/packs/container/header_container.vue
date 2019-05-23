@@ -4,7 +4,7 @@
       <router-link to="/" class="nav__brand">QiitaClone2019</router-link>
       <div class="nav__menu">
         <router-link to="/post_articles">投稿する</router-link>
-        <router-link to="/sign_in">ログイン</router-link>
+        <router-link to="/sign_in" v-if="config === null">ログイン</router-link>
         <button type="submit" @click="signOut">ログアウト</button>
       </div>
     </nav>
@@ -53,15 +53,24 @@
       text-decoration:none;
     }
     .header__container__nav {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+      margin-left: auto;
+      margin-right: auto;
       .nav__brand {
         font-size: 2em;
-        display: block;
-        text-align: left;
-        padding: 20px 0 0 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        position: relative;
       }
       .nav__menu {
-        text-align: right;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
   }
