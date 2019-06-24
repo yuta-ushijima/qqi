@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <header_container></header_container>
     <h2 class="heading">ユーザー登録受付完了</h2>
     <div>
       <p>
@@ -15,8 +16,12 @@
 <script lang="ts">
   import { Vue, Component } from "vue-property-decorator"
   import Router from '../router/router'
+  import Header_container from "packs/container/header_container.vue";
 
-  @Component
+  @Component({
+    components: { Header_container }
+  })
+
   export default class CompleteUserRegistrationContainer extends Vue {
     async created() {
       await setTimeout( () => Router.push('/sign_in'), 10000);

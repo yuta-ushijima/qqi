@@ -1,7 +1,6 @@
 <template>
     <div id="articles-container">
-        <button type="submit" @click="signOut">ログアウト</button>
-        <router-link to="/post_articles">投稿する</router-link>
+        <header_container></header_container>
         <ul>
             <li v-for="article in articles" :key="article.id">
                 <div class="article__title">{{article.title}}</div>
@@ -15,6 +14,7 @@
   import axios from "axios"
   import { Vue, Component } from "vue-property-decorator"
   import VueRouter from 'vue-router'
+  import Header_container from "packs/container/header_container.vue";
 
   /* devise-auth-tokenで設定したヘッダー情報 */
   const config = {
@@ -29,7 +29,10 @@
 
   Vue.use(VueRouter);
 
-  @Component
+  @Component({
+    components: { Header_container }
+  })
+
   export default class ArticlesContainer extends Vue {
     articles: String[] = []
 

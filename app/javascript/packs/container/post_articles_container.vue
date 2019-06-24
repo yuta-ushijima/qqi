@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <header_container></header_container>
     <h2 class="heading">新規記事</h2>
     <form class="article__form" v-on:submit.prevent="PostArticles">
         <div>
@@ -31,6 +32,7 @@
   import axios from "axios"
   import { Vue, Component } from "vue-property-decorator"
   import VueRouter from 'vue-router'
+  import Header_container from "packs/container/header_container.vue";
 
   Vue.use(VueRouter);
 
@@ -44,7 +46,10 @@
     }
   }
 
-  @Component
+  @Component({
+    components: { Header_container }
+  })
+
   export default class PostArticlesContainer extends Vue {
     public title: string = '';
     public body: string = '';

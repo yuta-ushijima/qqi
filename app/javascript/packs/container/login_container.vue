@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <header_container></header_container>
     <h2 class="heading">ログイン</h2>
     <form class="login__form" v-on:submit.prevent="signIn">
       <div>
@@ -19,8 +20,12 @@
   import axios from "axios"
   import { Vue, Component } from "vue-property-decorator"
   import Router from '../router/router'
+  import Header_container from "packs/container/header_container.vue";
 
-  @Component
+  @Component({
+    components: { Header_container }
+  })
+
   export default class LoginContainer extends Vue {
     public email: string = '';
     public password: string = '';

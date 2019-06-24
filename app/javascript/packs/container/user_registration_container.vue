@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <header_container></header_container>
     <h2 class="heading">ユーザー登録</h2>
     <form class="login__form" v-on:submit.prevent="signUp">
       <div>
@@ -23,8 +24,12 @@
   import axios from "axios"
   import { Vue, Component } from "vue-property-decorator"
   import Router from '../router/router'
+  import Header_container from "packs/container/header_container.vue";
 
-  @Component
+  @Component({
+    components: { Header_container }
+  })
+
   export default class UserRegistrationContainer extends Vue {
     public name: string = '';
     public email: string = '';
