@@ -6,6 +6,9 @@
         <router-link to="/post_articles">
           <button class="post__button">投稿する</button>
         </router-link>
+        <router-link to="/my_page">
+          <button class="post__button">マイページ</button>
+        </router-link>
         <router-link to="/sign_in" v-if="config === null">ログイン</router-link>
         <button type="submit" class="auth__button" @click="signOut">ログアウト</button>
       </div>
