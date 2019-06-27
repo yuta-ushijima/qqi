@@ -23,6 +23,8 @@ group :development, :test do
   gem "pry-doc"
   gem "pry-rails"
   gem "rubocop-rails"
+  gem "rubocop-rspec"
+  gem "rubocop-performance"
 end
 
 group :development do
