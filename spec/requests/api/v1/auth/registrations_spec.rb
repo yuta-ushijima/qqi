@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "Api::V1::Auth::Registrations", type: :request do
   describe "POST /api/v1/sign_up" do
     subject { post(api_v1_user_registration_path, params: params) }
+
     context "ユーザーがメールアドレスとパスワードを入力した時" do
       let(:params) { attributes_for(:user) }
       it "ユーザー登録ができること" do
@@ -14,6 +15,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
         expect(response).to have_http_status(:ok)
       end
     end
+
     context "リクエストパラメータが不正なとき" do
       let(:params) { { user: attributes_for(:user) } }
       it "ユーザー登録できないこと" do
@@ -28,9 +30,10 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
 
   describe "POST /api/v1/auth/sign_in" do
     subject { post(api_v1_user_session_path, params: params) }
+
     context "メールアドレスとパスワードが正しいとき" do
       let(:current_user) { create(:user) }
-      let(:params) { { email: current_user.email,  password: current_user.password }}
+      let(:params) { { email: current_user.email, password: current_user.password } }
       it "ユーザーがログインできること" do
         subject
         res = JSON.parse(response.body)
@@ -45,7 +48,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
 
     context "メールアドレスが正しくないとき" do
       let(:user) { create(:user) }
-      let(:params) { { email: "invalid@example.com",  password: user.password }}
+      let(:params) { { email: "invalid@example.com", password: user.password } }
       it "ログインできないこと" do
         subject
         res = JSON.parse(response.body)
@@ -60,7 +63,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
 
     context "パスワードが正しくないとき" do
       let(:user) { create(:user) }
-      let(:params) { { email: user.email,  password: "invalidpassword" }}
+      let(:params) { { email: user.email, password: "invalidpassword" } }
       it "ログインできないこと" do
         subject
         res = JSON.parse(response.body)
@@ -73,15 +76,15 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
     describe "DELETE /api/v1/auth/sign_out" do
       context "ユーザーがログインしているとき" do
         let(:current_user) { create(:user) }
-        let(:params) { { email: current_user.email,  password: current_user.password }}
+        let(:params) { { email: current_user.email, password: current_user.password } }
         it "ログアウトできること" do
           post(api_v1_user_session_path, params: params)
 
           delete(destroy_api_v1_user_session_path, { headers: {
             uid: response.headers["uid"],
             client: response.headers["client"],
-            "access-token": response.headers["access-token"]
-          }})
+            "access-token": response.headers["access-token"],
+          } })
 
           res = JSON.parse(response.body)
           expect(res["success"]).to be_truthy

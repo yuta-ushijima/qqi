@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::MypageController < ApplicationController
   before_action :authenticate_user!, only: [:index]
 

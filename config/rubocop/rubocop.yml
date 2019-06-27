@@ -5,7 +5,17 @@ AllCops:
   Exclude:
     - "node_modules/**/*" # rubocop config/default.yml
     - "vendor/**/*"       # rubocop config/default.yml
-    - "db/schema.rb"
+    - "db/**/*"
+    - "bin/**/*"
+    - "config/initializers/*"
+    - "config/environments/*"
+    - "config/environment.rb"
+    - "config/application.rb"
+    - "config/boot.rb"
+    - "config/spring.rb"
+    - "config.ru"
+
+
 
 #################### Layout ################################
 
@@ -31,17 +41,17 @@ Layout/ExtraSpacing:
 # special_inside_parentheses (default) と比べて
 # * 横に長くなりづらい
 # * メソッド名の長さが変わったときに diff が少ない
-Layout/IndentArray:
+Layout/IndentFirstArrayElement:
   EnforcedStyle: consistent
 
 # ({ と hash を開始した場合に ( の位置にインデントさせる
 # そもそも {} が必要ない可能性が高いが Style/BracesAroundHashParameters はチェックしないことにしたので
-Layout/IndentHash:
+Layout/IndentFirstHashElement:
   EnforcedStyle: consistent
 
 # private/protected は一段深くインデントする
 Layout/IndentationConsistency:
-  EnforcedStyle: rails
+  EnforcedStyle: indented_internal_methods
 
 # メソッドチェーン感がより感じられるインデントにする
 Layout/MultilineMethodCallIndentation:
@@ -208,6 +218,10 @@ Style/BlockDelimiters:
 Style/BracesAroundHashParameters:
   Enabled: false
 
+# '"==="演算子の使用を許可
+Style/CaseEquality:
+  Enabled: false
+
 # scope が違うとか親 module の存在確認が必要とかデメリットはあるが、
 # namespace 付きのクラスはかなり頻繁に作るので簡単に書きたい。
 Style/ClassAndModuleChildren:
@@ -302,6 +316,10 @@ Style/MixinUsage:
     - "bin/update"
     - "spec/dummy/bin/setup"
     - "spec/dummy/bin/update"
+
+# 複数行における三項演算子の使用を許可
+Style/MultilineTernaryOperator:
+  Enabled: false
 
 # 1_000_000 と区切り文字が 2 個以上必要になる場合のみ _ 区切りを必須にする
 # 10_000_00 は許可しない。(これは例えば 10000 ドルをセント単位にする時に便利だが
