@@ -34,12 +34,11 @@ RSpec.describe "Api::V1::Articles", type: :request do
   end
 
   describe "POST /api/v1/articles" do
-
     subject do
       post(
         api_v1_articles_path,
         params: article_params,
-        headers: authentication_headers_for(current_user)
+        headers: authentication_headers_for(current_user),
       )
     end
 
@@ -57,7 +56,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
     end
 
     context "ユーザーがログインしていないとき" do
-      let!( :current_user) { nil }
+      let!(:current_user) { nil }
       let!(:params) { { article: attributes_for(:article) } }
       it "エラーが返ってくること" do
         post(api_v1_articles_path, params: params)
@@ -71,7 +70,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
   describe "GET /api/v1/articles/:id" do
     subject do
       get(
-        api_v1_article_path(article_id)
+        api_v1_article_path(article_id),
       )
     end
 
@@ -105,7 +104,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
       it "自分の下書き記事のレコードが取得できること" do
         get(
           api_v1_article_path(article_id),
-          headers: authentication_headers_for(current_user)
+          headers: authentication_headers_for(current_user),
         )
         res = JSON.parse(response.body)
         expect(res["data"]["attributes"]["title"]).to eq(article.title)
@@ -116,14 +115,13 @@ RSpec.describe "Api::V1::Articles", type: :request do
   end
 
   describe "PATCH /api/v1/articles/:id" do
-
     subject do
       patch(
         api_v1_article_path(article.id, params),
-        headers: authentication_headers_for(current_user)
+        headers: authentication_headers_for(current_user),
       )
-
     end
+
     let!(:article) { create(:article, user_id: current_user.id) }
 
     context "ユーザーがログインしているとき" do
@@ -142,7 +140,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
     subject do
       delete(
         api_v1_article_path(article.id),
-        headers: authentication_headers_for(current_user)
+        headers: authentication_headers_for(current_user),
       )
     end
 

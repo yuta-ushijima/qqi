@@ -1,37 +1,41 @@
-source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+# frozen_string_literal: true
 
-ruby '2.6.1'
+source "https://rubygems.org"
+git_source(:github) {|repo| "https://github.com/#{repo}.git" }
 
-gem 'rails', '~> 5.2.3'
-gem 'mysql2', '>= 0.4.4', '< 0.6.0'
-gem 'puma', '~> 3.11'
-gem 'webpacker'
+ruby "2.6.1"
 
-gem 'devise'
-gem 'devise_token_auth', github: 'lynndylanhurley/devise_token_auth'
-gem 'rack-cors', require: 'rack/cors'
-gem 'devise-i18n'
-gem 'rails-i18n'
+gem "mysql2", ">= 0.4.4", "< 0.6.0"
+gem "puma", "~> 3.11"
+gem "rails", "~> 5.2.3"
+gem "webpacker"
 
-gem 'turbolinks', '~> 5'
-gem 'active_model_serializers', '~> 0.10.0'
-gem 'bootsnap', '>= 1.1.0', require: false
+gem "devise"
+gem "devise-i18n"
+gem "devise_token_auth", github: "lynndylanhurley/devise_token_auth"
+gem "rack-cors", require: "rack/cors"
+gem "rails-i18n"
+
+gem "active_model_serializers", "~> 0.10.0"
+gem "bootsnap", ">= 1.1.0", require: false
+gem "turbolinks", "~> 5"
 
 group :development, :test do
   gem "pry-byebug"
   gem "pry-doc"
   gem "pry-rails"
+  gem "rubocop-performance"
   gem "rubocop-rails"
+  gem "rubocop-rspec"
 end
 
 group :development do
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'rails-erd'
-  gem 'annotate'
+  gem "annotate"
+  gem "listen", ">= 3.0.5", "< 3.2"
+  gem "rails-erd"
+  gem "spring"
+  gem "spring-watcher-listen", "~> 2.0.0"
+  gem "web-console", ">= 3.3.0"
 end
 
 group :test do
@@ -42,4 +46,4 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
