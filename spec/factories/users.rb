@@ -6,7 +6,7 @@ FactoryBot.define do
     sequence(:email) {|n| Faker::Internet.email("#{n}_#{_name}") }
     password { Faker::Internet.password }
     uid { email }
-    confirmed_at { DateTime.zone.now }
+    confirmed_at { DateTime.current }
     provider { "email" }
 
     trait :with_comments do
