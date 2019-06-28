@@ -31,6 +31,9 @@ module QiitaClone2019
     end
     config.api_only = true
 
+    # flashのキーをセットアップ
+    config.middleware.use ActionDispatch::Flash
+
     # cors setting for devise_token_auth
     config.middleware.use Rack::Cors do
       allow do
