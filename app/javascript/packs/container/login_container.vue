@@ -34,15 +34,17 @@
       const params = {
         email: this.email,
         password: this.password
-      }
+      };
+
       await axios.post("/api/v1/auth/sign_in", params).then((response) => {
         // TODO: MyPage実装後にpush先を変更
-        localStorage.setItem('access-token', response.headers["access-token"])
-        localStorage.setItem('uid', response.headers["uid"])
-        localStorage.setItem('client', response.headers["client"])
-        Router.push('/articles')
-      }).catch(() => {
-        alert('メールアドレスまたはパスワードが正しくありません')
+        localStorage.setItem('access-token', response.headers["access-token"]);
+        localStorage.setItem('uid', response.headers["uid"]);
+        localStorage.setItem('client', response.headers["client"]);
+        Router.push('/articles');
+        window.location.reload();
+      }).catch((e) => {
+        alert(e.response.data.errors)
       })
     }
   }
