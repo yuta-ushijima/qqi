@@ -1,16 +1,30 @@
 <template>
   <header class="header__container">
     <nav class="header__container__nav">
-      <h1 class="nav__brand">QiitaClone2019</h1>
+      <router-link to="/">
+        <h1 class="nav__brand">QiitaClone2019</h1>
+      </router-link>
+
       <div class="nav__menu">
-        <router-link to="/post_articles">
-          <button class="post__button">投稿する</button>
-        </router-link>
-        <router-link to="/my_page">
-          <button class="post__button">マイページ</button>
-        </router-link>
-        <router-link to="/sign_in" v-if="config === null">ログイン</router-link>
-        <button type="submit" class="auth__button" @click="signOut">ログアウト</button>
+        <div v-if="isLoggedIn">
+          <router-link to="/post_articles">
+            <button class="post__button">投稿する</button>
+          </router-link>
+
+          <router-link to="/my_page">
+            <button class="post__button">マイページ</button>
+          </router-link>
+
+          <button type="submit" class="auth__button" @click="signOut">ログアウト</button>
+        </div>
+        <div v-else>
+          <router-link to="/sign_in">
+            <button class="auth__button">ログイン</button>
+          </router-link>
+          <router-link to="/sign_up">
+            <button class="post__button">ユーザー登録</button>
+          </router-link>
+        </div>
       </div>
     </nav>
   </header>
@@ -37,11 +51,14 @@
   @Component
   export default class HeaderContainer extends Vue {
 
+    isLoggedIn: boolean = !!localStorage.getItem("access-token");
+
     async signOut(): Promise<void> {
       await axios.delete('/api/v1/auth/sign_out', config).then(() => {
-        alert('ログアウトしました')
+        alert('ログアウトしました');
         localStorage.clear();
-        this.$router.push('/sign_in')
+        this.$router.push('/sign_in');
+        window.location.reload();
       }).catch(() => {
         console.log(config);
         alert('ログアウトに失敗しました')
