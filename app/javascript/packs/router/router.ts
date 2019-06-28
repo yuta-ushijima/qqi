@@ -12,7 +12,7 @@ Vue.use(VueRouter)
 export default new VueRouter({
   mode: 'history',
   routes: [
-    { path: '/articles', component: ArticlesContainer },
+    { path: '/', component: ArticlesContainer },
     { path: '/sign_in', component: LoginContainer },
     { path: '/sign_up', component: UserRegistrationContainer },
     { path: '/complete_user_registration', component: CompleteUserRegistrationContainer },
