@@ -29,7 +29,6 @@
 #  unconfirmed_email      :string(255)
 #
 
-
 class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 

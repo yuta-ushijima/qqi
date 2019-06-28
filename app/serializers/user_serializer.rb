@@ -29,7 +29,6 @@
 #  unconfirmed_email      :string(255)
 #
 
-
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :name, :email, :password
 end

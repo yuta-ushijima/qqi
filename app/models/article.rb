@@ -13,7 +13,6 @@
 #  user_id     :bigint
 #
 
-
 class Article < ApplicationRecord
   # association
   belongs_to :user
