@@ -3,8 +3,14 @@
         <header_container></header_container>
         <ul>
             <li v-for="article in articles" :key="article.id">
-                <div class="article__title">{{article.title}}</div>
-                <div class="article-body">{{article.body}}</div>
+                <div class="article__title">
+                    <router-link :to="{ name: 'article_detail', params: { articleId: article.id } }">
+                        {{article.attributes.title}}
+                    </router-link>
+                </div>
+                <div class="article-body">
+                        {{article.attributes.body}}
+                </div>
             </li>
         </ul>
     </div>
@@ -43,7 +49,7 @@
     async fetchArticles(): Promise<void> {
       await axios.get("/api/v1/articles").then((response) => {
         response.data.data.map((article: any) => {
-          this.articles.push(article.attributes);
+          this.articles.push(article);
         })
       })
     }
