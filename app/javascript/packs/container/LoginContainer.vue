@@ -20,7 +20,7 @@
   import axios from "axios"
   import { Vue, Component } from "vue-property-decorator"
   import Router from '../router/router'
-  import Header_container from "packs/container/header_container.vue";
+  import Header_container from "Header.vue";
 
   @Component({
     components: { Header_container }
