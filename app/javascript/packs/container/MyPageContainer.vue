@@ -66,7 +66,7 @@
     }
 
     async deleteArticle(): Promise<void> {
-      if(confirm('Are you sure?')) {
+      if(confirm('本当に削除しますか？')) {
         await axios.delete(`/api/v1/articles/${this.articleId}`, config).then((response) => {
           this.$router.push('/my_page');
           window.location.reload();
