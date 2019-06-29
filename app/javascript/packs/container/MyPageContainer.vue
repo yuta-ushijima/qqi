@@ -17,7 +17,7 @@
   import axios from "axios"
   import { Vue, Component } from "vue-property-decorator"
   import VueRouter from 'vue-router'
-  import Header_container from "Header.vue";
+  import Header_container from "./Header.vue";
 
   /* devise-auth-tokenで設定したヘッダー情報 */
   const config = {

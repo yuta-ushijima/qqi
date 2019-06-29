@@ -16,7 +16,7 @@
 <script lang="ts">
   import { Vue, Component } from "vue-property-decorator"
   import Router from '../router/router'
-  import Header_container from "Header.vue";
+  import Header_container from "./Header.vue";
 
   @Component({
     components: { Header_container }
