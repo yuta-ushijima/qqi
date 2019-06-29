@@ -5,7 +5,7 @@ import LoginContainer from '../container/LoginContainer.vue'
 import UserRegistrationContainer from '../container/user_registration_container.vue'
 import CompleteUserRegistrationContainer from '../container/AfterUserRegistrationContainer.vue'
 import PostArticlesContainer from '../container/post_articles_container.vue'
-import MyPageContainer from '../container/mypage_container.vue'
+import MyPageContainer from '../container/MyPageContainer.vue'
 
 Vue.use(VueRouter)
 
