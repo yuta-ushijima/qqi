@@ -61,6 +61,21 @@ jobs:
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+
+  rubocop:
+    executor:
+      name: default_container
+    steps:
+      - restore_cache: # ソースコードの復元
+          key: v1-qiita_clone_2019-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache: # vendor/bundleを復元
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      - install_bundler
+      - run:
+          name: Execute rubocop
+          command: |
+            bundle exec rubocop
+
   rspec:
     executor:
       name: default_container
@@ -114,6 +129,9 @@ workflows:
       - bundle_dependencies:
           requires:
             - fetch_source_code
+      - rubocop:
+          requires: # bundle_dependenciesの後にrubocopを実行する
+            - bundle_dependencies
       - rspec:
           requires: # bundle_dependenciesの後にrspecを実行する
             - bundle_dependencies
