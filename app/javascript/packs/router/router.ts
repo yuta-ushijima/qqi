@@ -6,6 +6,7 @@ import SignUpContainer from '../container/SignUpContainer.vue'
 import CompleteUserRegistrationContainer from '../container/AfterUserRegistrationContainer.vue'
 import PostArticleContainer from '../container/PostArticleContainer.vue'
 import MyPageContainer from '../container/MyPageContainer.vue'
+import EditArticleContainer from "../container/EditArticleContainer.vue";
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,7 @@ export default new VueRouter({
     { path: '/sign_up', component: SignUpContainer },
     { path: '/complete_user_registration', component: CompleteUserRegistrationContainer },
     { path: '/post_articles', component: PostArticleContainer },
+    { path: '/edit_articles/:articleId', name: 'edit_article', component: EditArticleContainer },
     { path: '/my_page', component: MyPageContainer },
     // 存在しないpathが指定された時はrootへredirect
     { path: '*', redirect: '/' }
