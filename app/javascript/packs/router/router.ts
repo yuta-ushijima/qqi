@@ -1,6 +1,6 @@
 import Vue from 'vue/dist/vue.esm.js'
 import VueRouter from 'vue-router'
-import ArticlesContainer from '../container/articles_container.vue'
+import ArticlesContainer from '../container/ArticlesContainer.vue'
 import LoginContainer from '../container/login_container.vue'
 import UserRegistrationContainer from '../container/user_registration_container.vue'
 import CompleteUserRegistrationContainer from '../container/complete_user_registration_container.vue'
