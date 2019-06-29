@@ -1,13 +1,9 @@
 <template>
   <div class="container">
     <header_container></header_container>
-    <h2 class="heading">ユーザー登録</h2>
-    <form class="login__form" v-on:submit.prevent="signUp">
+    <h2 class="heading">ログイン</h2>
+    <form class="login__form" v-on:submit.prevent="signIn">
       <div>
-        <label>ユーザー名</label>
-        <input type="text" name="name" placeholder="ユーザー名を入力" v-model="name">
-      </div>
-        <div>
         <label>メールアドレス</label>
         <input type="text" name="email" placeholder="メールアドレスを入力" v-model="email">
       </div>
@@ -15,7 +11,7 @@
         <label>パスワード</label>
         <input type="password" name="password" placeholder="パスワードを入力" v-model="password">
       </div>
-      <button type="submit">登録</button>
+      <button type="submit">ログイン</button>
     </form>
   </div>
 </template>
@@ -24,29 +20,31 @@
   import axios from "axios"
   import { Vue, Component } from "vue-property-decorator"
   import Router from '../router/router'
-  import Header_container from "packs/container/header_container.vue";
+  import Header_container from "./Header.vue";
 
   @Component({
     components: { Header_container }
   })
 
-  export default class UserRegistrationContainer extends Vue {
-    public name: string = '';
+  export default class LoginContainer extends Vue {
     public email: string = '';
     public password: string = '';
 
-    async signUp(): Promise<void> {
-
+    async signIn(): Promise<void> {
       const params = {
-        name: this.name,
         email: this.email,
         password: this.password
-      }
+      };
 
-      await axios.post("/api/v1/auth", params).then((response) => {
-        Router.push('/complete_user_registration')
-      }).catch((error) => {
-        alert(error)
+      await axios.post("/api/v1/auth/sign_in", params).then((response) => {
+        // TODO: MyPage実装後にpush先を変更
+        localStorage.setItem('access-token', response.headers["access-token"]);
+        localStorage.setItem('uid', response.headers["uid"]);
+        localStorage.setItem('client', response.headers["client"]);
+        Router.push('/articles');
+        window.location.reload();
+      }).catch((e) => {
+        alert(e.response.data.errors)
       })
     }
   }
