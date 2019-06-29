@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get "/post_articles", to: "homes#index"
   get "/complete_user_registration", to: "homes#index"
   get "/my_page", to: "homes#index"
+  get "/edit_articles/:id", to: "homes#index"
 
   get "/activation", to: "activations#index"
 
