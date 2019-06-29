@@ -2,11 +2,9 @@
   <div class="container">
     <header_container></header_container>
     <h2 class="heading">記事詳細</h2>
-      <div>
+      <div class="article">
         <h1>{{articleTitle}}</h1>
-      </div>
-      <div>
-        <div>{{articleBody}}</div>
+        <div class="article-body">{{articleBody}}</div>
       </div>
   </div>
 </template>
@@ -73,7 +71,7 @@
   .heading::before {
     bottom: 5px;
   }
-  .article__form {
+  .article {
     width: 90%;
     margin: 100px auto;
     padding-top: 20px;
@@ -82,24 +80,13 @@
     background-color: rgba(51,255,184,0.25);
     display: block;
     border-radius: 0;
-    input[type=text] {
+    .article-body {
       width: 90%;
-      margin: 10px auto;
-      padding: 15px;
-    }
-    textarea {
-      width: 90%;
-      height: 500px;
+      height: 100%;
       display: block;
+      background-color: #FFF;
       margin: 10px auto;
       padding: 15px;
     }
-    .article__form__selectBox {
-      padding: 20px;
-      select {
-        padding: 15px;
-      }
-    }
-
   }
 </style>
