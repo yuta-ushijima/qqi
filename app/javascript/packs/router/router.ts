@@ -18,7 +18,7 @@ export default new VueRouter({
     { path: '/sign_up', component: SignUpContainer },
     { path: '/complete_user_registration', component: CompleteUserRegistrationContainer },
     { path: '/post_articles', component: PostArticleContainer },
-    { path: '/edit_articles/:articleId', component: EditArticleContainer },
+    { path: '/edit_articles/:articleId', name: 'edit_article', component: EditArticleContainer },
     { path: '/my_page', component: MyPageContainer },
     // 存在しないpathが指定された時はrootへredirect
     { path: '*', redirect: '/' }

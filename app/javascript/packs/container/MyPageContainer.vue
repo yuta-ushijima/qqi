@@ -4,9 +4,13 @@
     <ul>
       <h2>私が投稿した記事一覧</h2>
       <li v-for="myArticle in myArticles" :key="myArticle.id">
-        <div class="article__title">title: {{myArticle.title}}</div>
-        <div class="article-body">body: {{myArticle.body}}</div>
-        <div class="article-status">status: {{myArticle.post_status}}</div>
+        <div class="article__title">
+          <router-link :to="{ name: 'edit_article', params: { articleId: myArticle.id } }">
+            {{myArticle.attributes.title}}
+          </router-link>
+        </div>
+        <div class="article-body">body: {{myArticle.attributes.body}}</div>
+        <div class="article-status">status: {{myArticle.attributes.post_status}}</div>
       </li>
     </ul>
   </div>
@@ -46,7 +50,7 @@
     async fetchMyArticles(): Promise<void> {
       await axios.get("/api/v1/my_articles", config).then((response) => {
         response.data.data.map((myArticle: any) => {
-          this.myArticles.push(myArticle.attributes);
+          this.myArticles.push(myArticle);
         })
       })
     }
