@@ -3,14 +3,22 @@
     <header_container></header_container>
     <ul>
       <h2>私が投稿した記事一覧</h2>
+
       <li v-for="myArticle in myArticles" :key="myArticle.id">
+
         <div class="article__title">
           <router-link :to="{ name: 'edit_article', params: { articleId: myArticle.id } }">
             {{myArticle.attributes.title}}
           </router-link>
         </div>
-        <div class="article-body">body: {{myArticle.attributes.body}}</div>
-        <div class="article-status">status: {{myArticle.attributes.post_status}}</div>
+
+        <div class="article-status">{{myArticle.attributes.post_status}}</div>
+
+        <div class="delete__button">
+          <button class="" @click="deleteArticle">
+            削除
+          </button>
+        </div>
       </li>
     </ul>
   </div>
@@ -42,6 +50,7 @@
 
   export default class MyPageContainer extends Vue {
     myArticles: String[] = []
+    articleId: number;
 
     async mounted(): Promise<void> {
       await this.fetchMyArticles();
@@ -51,8 +60,21 @@
       await axios.get("/api/v1/my_articles", config).then((response) => {
         response.data.data.map((myArticle: any) => {
           this.myArticles.push(myArticle);
+          this.articleId = myArticle.id
         })
       })
+    }
+
+    async deleteArticle(): Promise<void> {
+      if(confirm('Are you sure?')) {
+        await axios.delete(`/api/v1/articles/${this.articleId}`, config).then((response) => {
+          this.$router.push('/my_page');
+          window.location.reload();
+          console.log(response)
+        }).catch((error) => {
+          alert(error)
+        })
+      }
     }
   }
 </script>
@@ -67,5 +89,6 @@
   }
   .article__title {
     font-size: 1.5em;
+    margin-bottom: 5px;
   }
 </style>
