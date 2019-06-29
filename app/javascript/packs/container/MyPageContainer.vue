@@ -70,7 +70,6 @@
         await axios.delete(`/api/v1/articles/${this.articleId}`, config).then((response) => {
           this.$router.push('/my_page');
           window.location.reload();
-          console.log(response)
         }).catch((error) => {
           alert(error)
         })
