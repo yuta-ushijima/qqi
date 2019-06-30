@@ -1,26 +1,31 @@
 <template>
-    <div id="articles-container">
-        <header_container></header_container>
-        <ul>
-            <li v-for="article in articles" :key="article.id">
-                <div class="article__title">
-                    <router-link :to="{ name: 'article_detail', params: { articleId: article.id } }">
-                        {{article.attributes.title}}
-                    </router-link>
-                </div>
-                <div class="article-body">
-                        {{article.attributes.body}}
-                </div>
-            </li>
-        </ul>
-    </div>
+  <v-container class="item elevation-3 article__container">
+    <v-list two-line>
+      <template v-for="article in articles">
+        <v-list-tile :key="article.title" avatar>
+
+          <v-list-tile-avatar>
+            <img :src="article.avatar">
+          </v-list-tile-avatar>
+
+          <v-list-tile-content>
+            <v-list-tile class="article__container--title">
+              <router-link :to="{ name: 'article_detail', params: { articleId: article.id } }" class="article__href--no-decoration">
+                {{article.attributes.title}}
+              </router-link>
+            </v-list-tile>
+
+          </v-list-tile-content>
+        </v-list-tile>
+      </template>
+    </v-list>
+  </v-container>
 </template>
 
 <script lang="ts">
   import axios from "axios"
   import { Vue, Component } from "vue-property-decorator"
   import VueRouter from 'vue-router'
-  import Header_container from "./Header.vue";
 
   /* devise-auth-tokenで設定したヘッダー情報 */
   const config = {
@@ -35,10 +40,7 @@
 
   Vue.use(VueRouter);
 
-  @Component({
-    components: { Header_container }
-  })
-
+  @Component
   export default class ArticlesContainer extends Vue {
     articles: String[] = []
 
@@ -68,14 +70,17 @@
 </script>
 
 <style lang="scss" scoped>
-  li {
-    list-style: none;
+  .article__href {
+    &--no-decoration {
+      text-decoration: none;
+      }
   }
-  div:nth-of-type(2) {
-    margin: 20px 0;
-    border-bottom: rgba(0,153,255,0.5) dotted 2px;
-  }
-  .article__title {
-    font-size: 1.5em;
+
+  .article__container {
+    margin-top: 1.5em;
+    &--title {
+        font-size: 2.5em;
+        line-height: 1.4;
+    }
   }
 </style>
