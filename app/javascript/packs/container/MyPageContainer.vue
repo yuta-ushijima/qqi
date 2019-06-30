@@ -1,27 +1,31 @@
 <template>
-  <div id="mypage-container">
-    <header_container></header_container>
-    <ul>
-      <h2>私が投稿した記事一覧</h2>
+  <v-container class="item elevation-3 article__container">
+   <v-list two-line>
+     <template v-for="myArticle in myArticles">
+       <v-list-tile :key="myArticle.title" avatar>
 
-      <li v-for="myArticle in myArticles" :key="myArticle.id">
+         <v-list-tile-avatar>
+           <img :src="myArticle.avatar">
+         </v-list-tile-avatar>
 
-        <div class="article__title">
-          <router-link :to="{ name: 'edit_article', params: { articleId: myArticle.id } }">
-            {{myArticle.attributes.title}}
-          </router-link>
-        </div>
+         <v-list-tile-content>
+           <v-list-tile class="article__container--title">
+             <router-link :to="{ name: 'edit_article', params: { articleId: myArticle.id } }" class="article__href--no-decoration">
+               {{myArticle.attributes.title}}
+             </router-link>
+             <div class="article__container--post-status">{{myArticle.attributes.post_status}}</div>
+             <div class="article__container--delete">
+               <button class="" @click="deleteArticle">
+                 削除
+               </button>
+             </div>
+           </v-list-tile>
 
-        <div class="article-status">{{myArticle.attributes.post_status}}</div>
-
-        <div class="delete__button">
-          <button class="" @click="deleteArticle">
-            削除
-          </button>
-        </div>
-      </li>
-    </ul>
-  </div>
+         </v-list-tile-content>
+       </v-list-tile>
+     </template>
+   </v-list>
+  </v-container>
 </template>
 
 
@@ -29,7 +33,6 @@
   import axios from "axios"
   import { Vue, Component } from "vue-property-decorator"
   import VueRouter from 'vue-router'
-  import Header_container from "./Header.vue";
 
   /* devise-auth-tokenで設定したヘッダー情報 */
   const config = {
@@ -40,14 +43,11 @@
       'client': localStorage.getItem('client'),
       'uid': localStorage.getItem('uid')
     }
-  }
+  };
 
   Vue.use(VueRouter);
 
-  @Component({
-    components: { Header_container }
-  })
-
+  @Component
   export default class MyPageContainer extends Vue {
     myArticles: String[] = []
     articleId: number;
@@ -78,16 +78,24 @@
   }
 </script>
 
-<style lang="scss">
-  li {
-    list-style: none;
+<style lang="scss" scoped>
+  .article__href {
+    &--no-decoration {
+      text-decoration: none;
+    }
   }
-  div:nth-of-type(3) {
-    margin: 20px 0;
-    border-bottom: rgba(0,153,255,0.5) dotted 2px;
-  }
-  .article__title {
-    font-size: 1.5em;
-    margin-bottom: 5px;
+
+  .article__container {
+    margin-top: 1.5em;
+    &--title {
+      font-size: 2.5em;
+      line-height: 1.4;
+    }
+    &--post-status {
+      margin-left: 0.5em;
+    }
+    &--delete {
+      margin-left: 0.5em;
+    }
   }
 </style>
