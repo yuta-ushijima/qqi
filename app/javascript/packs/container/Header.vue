@@ -1,33 +1,31 @@
 <template>
-  <header class="header__container">
-    <nav class="header__container__nav">
-      <router-link to="/">
-        <h1 class="nav__brand">QiitaClone2019</h1>
+  <v-toolbar dark color="#55c500">
+    <router-link to="/" class="nav__href--no-decoration">
+      <v-toolbar-title class="white--text font-weight-bold">QiitaClone2019</v-toolbar-title>
+    </router-link>
+
+    <v-spacer></v-spacer>
+
+    <div v-if="isLoggedIn">
+      <router-link to="/post_articles" class="nav__href--no-decoration">
+        <v-btn flat class="font-weight-bold  nav__btn--white-border">投稿する</v-btn>
       </router-link>
 
-      <div class="nav__menu">
-        <div v-if="isLoggedIn">
-          <router-link to="/post_articles">
-            <button class="post__button">投稿する</button>
-          </router-link>
+      <router-link to="/my_page" class="nav__href--no-decoration">
+        <v-btn flat class="post__button">マイページ</v-btn>
+      </router-link>
 
-          <router-link to="/my_page">
-            <button class="post__button">マイページ</button>
-          </router-link>
-
-          <button type="submit" class="auth__button" @click="signOut">ログアウト</button>
-        </div>
-        <div v-else>
-          <router-link to="/sign_in">
-            <button class="auth__button">ログイン</button>
-          </router-link>
-          <router-link to="/sign_up">
-            <button class="post__button">ユーザー登録</button>
-          </router-link>
-        </div>
-      </div>
-    </nav>
-  </header>
+      <v-btn flat class="white--text font-weight-bold" @click="signOut">ログアウト</v-btn>
+    </div>
+    <div v-else>
+      <router-link to="/sign_up" class="nav__href--no-decoration">
+        <v-btn flat class="nav__btn--white-border">ユーザー登録</v-btn>
+      </router-link>
+      <router-link to="/sign_in" class="nav__href--no-decoration">
+        <v-btn flat class="auth__button">ログイン</v-btn>
+      </router-link>
+    </div>
+  </v-toolbar>
 </template>
 
 <script lang="ts">
@@ -68,41 +66,16 @@
 </script>
 
 <style lang="scss" scoped>
-  .header__container {
-    background-color: #55c500;
-    width: 100%;
-    a {
-      text-decoration:none;
-    }
-    .header__container__nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 80px;
-      margin-left: auto;
-      margin-right: auto;
-      .nav__brand {
-        font-size: 2em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        color: #FFF;
-        font-family: Segoe UI,Helvetica Neue,Hiragino Kaku Gothic ProN,"メイリオ",meiryo,sans-serif;;
-        position: relative;
-      }
-      .nav__menu {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .post__button {
-        margin-right: 10px;
-      }
-      .auth__button {
-        margin-right: 10px;
-      }
+  .nav__href {
+    &--no-decoration {
+    text-decoration: none;
     }
   }
 
+  .nav__btn {
+    &--white-border {
+      border: 2px solid #fff;
+      border-radius: 5px;
+    }
+  }
 </style>
