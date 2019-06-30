@@ -1,4 +1,4 @@
-import Vue from 'vue/dist/vue.esm'
+import Vue from 'vue'
 import Router from './router/router'
 
 document.addEventListener('turbolinks:load', () => {
@@ -6,4 +6,4 @@ document.addEventListener('turbolinks:load', () => {
     el: '#app',
     router: Router,
   })
-})
+});
