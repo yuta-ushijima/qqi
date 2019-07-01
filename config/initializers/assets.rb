@@ -15,3 +15,4 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 # For normalize.css
 Rails.application.config.assets.precompile += %w( normalize.css )
+Rails.application.config.assets.precompile += %w( global.css )
