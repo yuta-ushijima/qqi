@@ -6,7 +6,8 @@
         <h1 class="article__container--title">{{articleTitle}}</h1>
       </v-layout>
       <v-layout>
-        <div class="article__container--body">{{articleBody}}</div>
+        <div class="article__container--body" v-html="compiledMarkdown"></div>
+
       </v-layout>
     </v-container>
   </v-list>
@@ -16,6 +17,7 @@
   import axios from "axios"
   import { Vue, Component } from "vue-property-decorator"
   import VueRouter from 'vue-router'
+  import marked from "marked"
 
   Vue.use(VueRouter);
 
@@ -41,6 +43,10 @@
       }).catch((error) => {
         alert(error)
       })
+    }
+
+    get compiledMarkdown() {
+      return marked(this.articleBody)
     }
   }
 </script>
