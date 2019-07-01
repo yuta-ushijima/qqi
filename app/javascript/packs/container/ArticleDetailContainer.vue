@@ -18,6 +18,7 @@
   import { Vue, Component } from "vue-property-decorator"
   import VueRouter from 'vue-router'
   import marked from "marked"
+  import hljs from "highlight.js"
 
   Vue.use(VueRouter);
 
@@ -29,7 +30,7 @@
       'client': localStorage.getItem('client'),
       'uid': localStorage.getItem('uid')
     }
-  }
+  };
 
   @Component
   export default class ArticleDetailContainer extends Vue {
@@ -45,13 +46,40 @@
       })
     }
 
+    async created(): Promise<void> {
+      const renderer = new marked.Renderer();
+      renderer.code = function (code, language) {
+        return (
+          "<pre"+'><code class="hljs">'+hljs.highlightAuto(code).value + "</code></pre>"
+        )
+
+      }
+      marked.setOptions({
+        renderer: renderer,
+        tables: true,
+        sanitize: true,
+        langPrefix: "",
+        highlight: function (code, lang) {
+          if (!lang || lang == "default") {
+            return hljs.highlightAuto(code, [lang]).value;
+          } else {
+            try {
+              return hljs.highlight(lang, code, true).value;
+            } catch (e) {
+              // Do nothing!
+            }
+          }
+        }
+      });
+    }
+
     get compiledMarkdown() {
       return marked(this.articleBody)
     }
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .article__container {
     margin-top: 1.5em;
     &--title {
@@ -61,6 +89,14 @@
     &--body {
       margin: 2em 0;
       font-size: 16px;
+    }
+  }
+</style>
+
+<style lang="scss">
+  .article__container {
+    code:before {
+      content: "";
     }
   }
 </style>
