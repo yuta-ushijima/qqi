@@ -38,6 +38,7 @@ before_fork do |server, _worker|
 
   # Before forking, kill the master process that belongs to the .oldbin PID.
   # This enables 0 downtime deploys.
+  # rubocop: disable Lint/HandleExceptions
   old_pid = "#{server.config[:pid]}.oldbin"
   if File.exist?(old_pid) && server.pid != old_pid
     begin
@@ -46,6 +47,7 @@ before_fork do |server, _worker|
       # someone else did our job for us
     end
   end
+  # rubocop: enable Lint/HandleExceptions
 end
 
 after_fork do |_server, _worker|
