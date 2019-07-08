@@ -19,7 +19,6 @@ gem "rack-cors", require: "rack/cors"
 gem "rails-i18n"
 
 gem "active_model_serializers", "~> 0.10.0"
-gem "bootsnap", ">= 1.1.0", require: false
 gem "turbolinks", "~> 5"
 
 group :development, :test do
