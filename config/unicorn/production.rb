@@ -1,11 +1,9 @@
 # paths
 app_path = "/var/www/qiita_clone_2019"
-shared_path = "#{app_path}/shared/"
-current_path = "#{app_path}/current"
-pid_path = "#{shared_path}/tmp/pids/unicorn.pid"
-listen_path = "#{shared_path}/tmp/sockets/unicorn.sock"
+pid_path = "#{app_path}/tmp/pids/unicorn.pid"
+listen_path = "#{app_path}/tmp/sockets/unicorn.sock"
 # unicorn paths
-working_directory current_path
+working_directory app_path
 pid pid_path
 
 # listen
