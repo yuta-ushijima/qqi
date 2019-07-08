@@ -47,5 +47,10 @@ group :test do
   gem "rspec_junit_formatter"
 end
 
+group :production do
+  gem "mini_racer", platforms: :ruby
+  gem "unicorn"
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
