@@ -5,6 +5,8 @@ git_source(:github) {|repo| "https://github.com/#{repo}.git" }
 
 ruby "2.6.1"
 
+gem "act-fluent-logger-rails"
+gem "lograge"
 gem "mysql2", ">= 0.4.4", "< 0.6.0"
 gem "puma", "~> 3.11"
 gem "rails", "~> 5.2.3"
