@@ -1,0 +1,11 @@
+development:
+  fluent_host:   <%= ENV['FLUENT_HOST_FOR_LOCAL'] %>
+  fluent_port:   24224
+  tag:           'foo'
+  messages_type: 'string'
+
+production:
+  fluent_host:   <%= ENV['FLUENT_HOST_FOR_PRODUCTION'] %>
+  fluent_port:   24224
+  tag:           'sample.tag'
+  messages_type: 'string'
