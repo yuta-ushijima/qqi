@@ -16,6 +16,7 @@
 class Article < ApplicationRecord
   # association
   belongs_to :user
+  has_many_attached :images
 
   enum post_status: { draft: "draft", published: "published" }
 end
