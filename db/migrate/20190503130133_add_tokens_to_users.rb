@@ -26,6 +26,8 @@ class AddTokensToUsers < ActiveRecord::Migration[5.2]
     add_column :users, :current_sign_in_ip, :string
     add_column :users, :last_sign_in_ip, :string
 
+    ## User Info
+    add_column :users, :image, :string
 
     ## Confirmable
     add_column :users, :confirmation_token, :string
