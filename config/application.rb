@@ -44,5 +44,11 @@ module QiitaClone2019
                  methods: [:get, :post, :options, :delete, :put]
       end
     end
+
+    # for fluentd
+    config.log_level = :info
+    config.logger = ActFluentLoggerRails::Logger.new
+    config.lograge.enabled = true
+    config.lograge.formatter = Lograge::Formatters::Json.new
   end
 end
