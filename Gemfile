@@ -10,8 +10,10 @@ gem "mysql2", ">= 0.4.4", "< 0.6.0"
 gem "puma", "~> 3.11"
 gem "rails", "~> 5.2.3"
 gem "sass-rails", "~> 5.0"
+gem 'mini_magick', '~> 4.8'
 gem "uglifier", ">= 1.3.0"
 gem "webpacker"
+gem "dotenv-rails"
 
 gem "devise"
 gem "devise-i18n"
