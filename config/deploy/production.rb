@@ -48,6 +48,7 @@ set :linked_files, %w[config/master.key config/database.yml]
 # Global options
 # --------------
 set :ssh_options, {
+  port: 22,
   keys: %w[~/.ssh/yuta-ushijima.pem],
   forward_agent: true,
   auth_methods: %w[publickey],
