@@ -154,6 +154,6 @@ workflows:
           requires: # すべてのテスト実行後にdeployを行う
             - rubocop
             - rspec
-#          filters: # masterブランチのみdeployを行う
-#            branches:
-#              only: master
+          filters: # masterブランチのみdeployを行う
+            branches:
+              only: feature/deploy_by_circleci
