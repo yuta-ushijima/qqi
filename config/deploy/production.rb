@@ -12,7 +12,7 @@ set :unicorn_pid, "/var/www/#{fetch(:application)}/shared/tmp/pids/unicorn.pid"
 set :unicorn_rack_env, "production"
 set :unicorn_config_path, "/var/www/#{fetch(:application)}/current/config/unicorn/production.rb"
 set :rails_env, "production"
-set :bundle_without, %w{development test}.join(' ')
+set :bundle_without, %w[development test].join(" ")
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
 
@@ -75,14 +75,14 @@ set :ssh_options, {
 #
 
 namespace :deploy do
-  desc 'Upload database.yml'
+  desc "Upload database.yml"
   task :upload do
     on roles([:app, :delayedjob, :sidekiq]) do |_host|
       if test "[ ! -d #{shared_path}/config ]"
         execute "mkdir -p #{shared_path}/config"
       end
-      upload!('config/database.yml', "#{shared_path}/config/database.yml")
-      upload!('config/master.key', "#{shared_path}/config/master.key")
+      upload!("config/database.yml", "#{shared_path}/config/database.yml")
+      upload!("config/master.key", "#{shared_path}/config/master.key")
     end
   end
 end
