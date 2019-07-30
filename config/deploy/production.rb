@@ -18,11 +18,11 @@ set :bundle_without, %w[development test].join(" ")
 
 # For New Encrypted Credentials of Rails5++
 # ==================
-# set :linked_files, %w[config/master.key config/database.yml]
-set :linked_files, fetch(:linked_files, []).push("config/database.yml")
+set :linked_files, %w[config/master.key config/database.yml]
+# set :linked_files, fetch(:linked_files, []).push("config/database.yml")
 # set :linked_files, fetch(:linked_files, []).push("config/master.key")
 
-before "deploy:starting", "deploy:upload"
+# before "deploy:starting", "deploy:upload"
 
 # role-based syntax
 # ==================
