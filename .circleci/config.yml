@@ -32,7 +32,7 @@ jobs:
     steps:
       - checkout
       - save_cache:
-          key: v2-qiita_clone_2019-{{ .Environment.CIRCLE_SHA1 }}
+          key: v3-qiita_clone_2019-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - ~/qiita_clone_2019
 
@@ -41,9 +41,9 @@ jobs:
       name: default_container
     steps:
       - restore_cache: # ソースコードの復元
-          key: v2-qiita_clone_2019-{{ .Environment.CIRCLE_SHA1 }}
+          key: v3-qiita_clone_2019-{{ .Environment.CIRCLE_SHA1 }}
       - restore_cache: # vendor/bundleを復元
-          key: v2-dependencies-{{ checksum "Gemfile.lock" }}
+          key: v3-dependencies-{{ checksum "Gemfile.lock" }}
 
       - run:
           name: setup bundler
@@ -59,7 +59,7 @@ jobs:
             bundle install
 
       - save_cache:
-          key: v2-dependencies-{{ checksum "Gemfile.lock" }}
+          key: v3-dependencies-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
@@ -68,9 +68,9 @@ jobs:
       name: default_container
     steps:
       - restore_cache: # ソースコードの復元
-          key: v2-qiita_clone_2019-{{ .Environment.CIRCLE_SHA1 }}
+          key: v3-qiita_clone_2019-{{ .Environment.CIRCLE_SHA1 }}
       - restore_cache: # vendor/bundleを復元
-          key: v2-dependencies-{{ checksum "Gemfile.lock" }}
+          key: v3-dependencies-{{ checksum "Gemfile.lock" }}
       - install_bundler
       - run:
           name: Execute rubocop
@@ -82,9 +82,9 @@ jobs:
       name: default_container
     steps:
       - restore_cache: # ソースコードの復元
-          key: v2-qiita_clone_2019-{{ .Environment.CIRCLE_SHA1 }}
+          key: v3-qiita_clone_2019-{{ .Environment.CIRCLE_SHA1 }}
       - restore_cache: # vendor/bundleを復元
-          key: v2-dependencies-{{ checksum "Gemfile.lock" }}
+          key: v3-dependencies-{{ checksum "Gemfile.lock" }}
 
       - run:
           name: Watting stand up database
@@ -128,9 +128,9 @@ jobs:
       name: default_container
     steps:
       - restore_cache: # ソースコードの復元
-          key: v2-qiita_clone_2019-{{ .Environment.CIRCLE_SHA1 }}
+          key: v3-qiita_clone_2019-{{ .Environment.CIRCLE_SHA1 }}
       - restore_cache: # vendor/bundleを復元
-          key: v2-dependencies-{{ checksum "Gemfile.lock" }}
+          key: v3-dependencies-{{ checksum "Gemfile.lock" }}
       - install_bundler
       - deploy:
           name: deploy by capistrano
