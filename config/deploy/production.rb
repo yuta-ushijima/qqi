@@ -6,18 +6,23 @@ set :branch, ENV["BRANCH"] || "master"
 # You can define all roles on a single server, or split them:
 
 # For API
-server "18.182.21.236", user: "ec2-user", roles: %w[app db web]
+server "3.113.242.122", user: "ec2-user", roles: %w[app db web]
 
 set :unicorn_pid, "/var/www/#{fetch(:application)}/shared/tmp/pids/unicorn.pid"
 set :unicorn_rack_env, "production"
 set :unicorn_config_path, "/var/www/#{fetch(:application)}/current/config/unicorn/production.rb"
 set :rails_env, "production"
+set :bundle_without, %w{development test}.join(' ')
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
 
 # For New Encrypted Credentials of Rails5++
 # ==================
-set :linked_files, %w[config/master.key config/database.yml]
+# set :linked_files, %w[config/master.key config/database.yml]
+set :linked_files, fetch(:linked_files, []).push("config/database.yml")
+# set :linked_files, fetch(:linked_files, []).push("config/master.key")
+
+before "deploy:starting", "deploy:upload"
 
 # role-based syntax
 # ==================
@@ -68,3 +73,16 @@ set :ssh_options, {
 #     # password: "please use keys"
 #   }
 #
+
+namespace :deploy do
+  desc 'Upload database.yml'
+  task :upload do
+    on roles([:app, :delayedjob, :sidekiq]) do |_host|
+      if test "[ ! -d #{shared_path}/config ]"
+        execute "mkdir -p #{shared_path}/config"
+      end
+      upload!('config/database.yml', "#{shared_path}/config/database.yml")
+      upload!('config/master.key', "#{shared_path}/config/master.key")
+    end
+  end
+end
