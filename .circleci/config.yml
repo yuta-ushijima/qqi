@@ -135,6 +135,7 @@ jobs:
       - deploy:
           name: deploy by capistrano
           command: |
+            bundle install --clean
             bundle exec cap production deploy
 
 
