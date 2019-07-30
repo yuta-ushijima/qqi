@@ -12,7 +12,7 @@ set :unicorn_pid, "/var/www/#{fetch(:application)}/shared/tmp/pids/unicorn.pid"
 set :unicorn_rack_env, "production"
 set :unicorn_config_path, "/var/www/#{fetch(:application)}/current/config/unicorn/production.rb"
 set :rails_env, "production"
-set :bundle_flags, "--quiet"
+set :bundle_flags, "--quiet --clean"
 set :bundle_without, %w[development test].join(" ")
 set :rbenv_map_bins, %w[rake gem bundle ruby rails]
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
