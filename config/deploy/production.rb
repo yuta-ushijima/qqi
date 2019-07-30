@@ -6,13 +6,13 @@ set :branch, ENV["BRANCH"] || "master"
 # You can define all roles on a single server, or split them:
 
 # For API
-server "3.113.242.122", user: "ec2-user", roles: %w[app db web]
+server "3.113.242.122", user: "ec2-user", roles: %w[apgp db web]
 
 set :unicorn_pid, "/var/www/#{fetch(:application)}/shared/tmp/pids/unicorn.pid"
 set :unicorn_rack_env, "production"
 set :unicorn_config_path, "/var/www/#{fetch(:application)}/current/config/unicorn/production.rb"
 set :rails_env, "production"
-set :bundle_flags, "--quiet --clean"
+set :bundle_clean_options, "--clean"
 set :bundle_without, %w[development test].join(" ")
 set :rbenv_map_bins, %w[rake gem bundle ruby rails]
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
@@ -23,6 +23,7 @@ set :rbenv_map_bins, %w[rake gem bundle ruby rails]
 set :linked_files, %w[config/master.key config/database.yml]
 # set :linked_files, fetch(:linked_files, []).push("config/database.yml")
 # set :linked_files, fetch(:linked_files, []).push("config/master.key")
+#
 
 # before "deploy:starting", "deploy:upload"
 
