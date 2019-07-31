@@ -1,9 +1,8 @@
 # paths
 app_name = "qiita_clone_2019"
-app_path = "/var/www/#{app_name}"
-listen_path = "#{app_path}/tmp/sockets/unicorn.sock"
 shared_path = "/var/www/#{app_name}/shared"
-current_path = "/var/www/#{app_name}/current/"
+current_path = "/var/www/#{app_name}/current"
+listen_path = "#{shared_path}/tmp/sockets/unicorn.sock"
 
 # unicorn paths
 working_directory current_path
@@ -24,7 +23,7 @@ timeout 30
 
 # use correct Gemfile on restarts
 before_exec do |_server|
-  ENV["BUNDLE_GEMFILE"] = "#{current_path} Gemfile"
+  ENV["BUNDLE_GEMFILE"] = "#{current_path}/Gemfile"
 end
 
 # preload
