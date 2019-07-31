@@ -9,7 +9,6 @@ current_path = "/var/www/#{app_name}/current/"
 working_directory current_path
 pid "#{shared_path}/tmp/pids/unicorn.pid"
 
-
 # listen
 listen listen_path, backlog: 64
 

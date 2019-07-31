@@ -48,7 +48,6 @@ set :rbenv_map_bins, %w[rake gem bundle ruby rails]
 # Default value for local_user is ENV['USER']
 # set :local_user, -> { `git config user.name`.chomp }
 
-
 set :unicorn_pid, "/var/www/#{fetch(:application)}/shared/tmp/pids/unicorn.pid"
 set :unicorn_rack_env, "production"
 set :unicorn_config_path, "/var/www/#{fetch(:application)}/current/config/unicorn/production.rb"
@@ -80,7 +79,6 @@ namespace :deploy do
   end
 end
 
-
 namespace :deploy do
   desc "Upload database.yml"
   task :upload do
@@ -97,13 +95,13 @@ end
 namespace :unicorn do
   on roles(:app) do
     task :restart do
-      invoke 'unicorn:restart'
+      invoke "unicorn:restart"
     end
     after :restart, :clear_cache do
       on roles(:app), in: :groups, limit: 3, wait: 10 do
         within current_path do
           with rails_env: fetch(:rails_env) do
-            execute :rake, 'tmp:cache:clear'
+            execute :rake, "tmp:cache:clear"
           end
         end
       end

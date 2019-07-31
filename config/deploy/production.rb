@@ -2,7 +2,7 @@ set :stage, "production"
 set :branch, ENV["BRANCH"] || "master"
 
 server "3.113.242.122", user: "ec2-user", roles: %w[apgp db web]
-server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
+server "example.com", user: "deploy", roles: %w[app web], other_property: :other_value
 
 # Global options
 # --------------
