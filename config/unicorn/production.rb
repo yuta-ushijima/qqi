@@ -1,17 +1,21 @@
 # paths
-app_path = "/var/www/qiita_clone_2019"
-pid_path = "#{app_path}/tmp/pids/unicorn.pid"
+app_name = "qiita_clone_2019"
+app_path = "/var/www/#{app_name}"
 listen_path = "#{app_path}/tmp/sockets/unicorn.sock"
+shared_path = "/var/www/#{app_name}/shared"
+current_path = "/var/www/#{app_name}/current/"
+
 # unicorn paths
-working_directory app_path
-pid pid_path
+working_directory current_path
+pid "#{shared_path}/tmp/pids/unicorn.pid"
+
 
 # listen
 listen listen_path, backlog: 64
 
 # logging
-stderr_path "#{app_path}/log/unicorn.stderr.log"
-stdout_path "#{app_path}/log/unicorn.stdout.log"
+stderr_path "#{current_path}/log/unicorn.stderr.log"
+stdout_path "#{current_path}/log/unicorn.stdout.log"
 
 # workers
 worker_processes 2
@@ -21,7 +25,7 @@ timeout 30
 
 # use correct Gemfile on restarts
 before_exec do |_server|
-  ENV["BUNDLE_GEMFILE"] = "#{app_path}/current/Gemfile"
+  ENV["BUNDLE_GEMFILE"] = "#{current_path} Gemfile"
 end
 
 # preload
