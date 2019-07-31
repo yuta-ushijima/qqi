@@ -122,6 +122,21 @@ jobs:
           path: ~/tmp/test-results
           destination: test-results
 
+  deploy_by_capistrano:
+    executor:
+      name: default_container
+    steps:
+      - restore_cache: # ソースコードの復元
+          key: v1-qiita_clone_2019-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache: # vendor/bundleを復元
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      - install_bundler
+      - deploy:
+          name: deploy by capistrano
+          command: |
+            bundle exec cap production deploy
+
+
 workflows:
   build:
     jobs:
@@ -135,3 +150,10 @@ workflows:
       - rspec:
           requires: # bundle_dependenciesの後にrspecを実行する
             - bundle_dependencies
+      - deploy_by_capistrano:
+          requires: # すべてのテスト実行後にdeployを行う
+            - rubocop
+            - rspec
+#          filters: # masterブランチのみdeployを行う
+#            branches:
+#              only: master
