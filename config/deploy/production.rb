@@ -26,7 +26,7 @@ set :linked_files, %w[config/master.key config/database.yml]
 #
 
 # before "deploy:starting", "deploy:upload"
-
+after "deploy:publishing", 'unicorn:restart'
 # role-based syntax
 # ==================
 
@@ -86,6 +86,23 @@ namespace :deploy do
       end
       upload!("config/database.yml", "#{shared_path}/config/database.yml")
       upload!("config/master.key", "#{shared_path}/config/master.key")
+    end
+  end
+end
+
+namespace :unicorn do
+  on roles(:app) do
+    task :restart do
+      invoke 'unicorn:restart'
+    end
+    after :restart, :clear_cache do
+      on roles(:app), in: :groups, limit: 3, wait: 10 do
+        within current_path do
+          with rails_env: fetch(:rails_env) do
+            execute :rake, 'tmp:cache:clear'
+          end
+        end
+      end
     end
   end
 end
