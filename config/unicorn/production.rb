@@ -11,7 +11,6 @@ pid "#{shared_path}/tmp/pids/unicorn.pid"
 # listen
 listen listen_path, backlog: 64
 
-
 # logging
 stderr_path "#{current_path}/log/unicorn.stderr.log"
 stdout_path "#{current_path}/log/unicorn.stdout.log"
