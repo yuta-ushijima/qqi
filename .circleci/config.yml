@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+    snyk: snyk/snyk@0.0.3
 
 executors:
   default_container:
@@ -135,7 +137,6 @@ jobs:
           name: deploy by capistrano
           command: |
             bundle exec cap production deploy
-
 
 workflows:
   build:
