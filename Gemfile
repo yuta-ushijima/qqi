@@ -7,18 +7,18 @@ ruby "2.6.1"
 
 gem "mysql2", ">= 0.4.4", "< 0.6.0"
 gem "puma", "~> 3.11"
-gem "rails", "~> 5.2.3"
-gem "sass-rails", "~> 5.0"
+gem "rails", "~> 5.2.4", ">= 5.2.4.6"
+gem "sass-rails", "~> 5.0", ">= 5.0.7"
 gem "uglifier", ">= 1.3.0"
-gem "webpacker"
+gem "webpacker", ">= 4.0.2"
 
-gem "devise"
-gem "devise-i18n"
+gem "devise", ">= 4.6.2"
+gem "devise-i18n", ">= 1.8.0"
 gem "devise_token_auth", github: "lynndylanhurley/devise_token_auth"
 gem "rack-cors", require: "rack/cors"
-gem "rails-i18n"
+gem "rails-i18n", ">= 5.1.3"
 
-gem "active_model_serializers", "~> 0.10.0"
+gem "active_model_serializers", "~> 0.10.9"
 gem "turbolinks", "~> 5"
 
 group :development, :test do
@@ -42,13 +42,13 @@ group :development do
   gem "rails-erd"
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
-  gem "web-console", ">= 3.3.0"
+  gem "web-console", ">= 3.7.0"
 end
 
 group :test do
-  gem "factory_bot_rails"
+  gem "factory_bot_rails", ">= 5.0.2"
   gem "faker"
-  gem "rspec-rails"
+  gem "rspec-rails", ">= 3.8.2"
   gem "rspec_junit_formatter"
 end
 
