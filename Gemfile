@@ -6,19 +6,19 @@ git_source(:github) {|repo| "https://github.com/#{repo}.git" }
 ruby "2.6.1"
 
 gem "mysql2", ">= 0.4.4", "< 0.6.0"
-gem "puma", "~> 3.11"
-gem "rails", "~> 5.2.3"
-gem "sass-rails", "~> 5.0"
+gem "puma", "~> 4.3", ">= 4.3.12"
+gem "rails", "~> 6.1.7", ">= 6.1.7.3"
+gem "sass-rails", "~> 6.0", ">= 6.0.0"
 gem "uglifier", ">= 1.3.0"
 gem "webpacker"
 
-gem "devise"
+gem "devise", ">= 4.7.1"
 gem "devise-i18n"
 gem "devise_token_auth", github: "lynndylanhurley/devise_token_auth"
-gem "rack-cors", require: "rack/cors"
-gem "rails-i18n"
+gem "rack-cors", ">= 1.0.5", require: "rack/cors"
+gem "rails-i18n", ">= 6.0.0"
 
-gem "active_model_serializers", "~> 0.10.0"
+gem "active_model_serializers", "~> 0.10.12"
 gem "turbolinks", "~> 5"
 
 group :development, :test do
@@ -32,17 +32,17 @@ end
 
 group :development do
   gem "annotate"
-  gem "capistrano", "~> 3.10", require: false
-  gem "capistrano-bundler", "~> 1.5"
-  gem "capistrano-database-yml", "~> 1.0.0"
-  gem "capistrano-rails", "~> 1.4", require: false
-  gem "capistrano-rbenv", "~> 2.1"
+  gem "capistrano", "~> 3.11", ">= 3.11.0", require: false
+  gem "capistrano-bundler", "~> 1.6", ">= 1.6.0"
+  gem "capistrano-database-yml", "~> 1.0.1"
+  gem "capistrano-rails", "~> 1.4", ">= 1.4.0", require: false
+  gem "capistrano-rbenv", "~> 2.1", ">= 2.1.4"
   gem "capistrano3-unicorn"
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "rails-erd"
   gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.0"
-  gem "web-console", ">= 3.3.0"
+  gem "spring-watcher-listen", "~> 2.0.1"
+  gem "web-console", ">= 3.7.0"
 end
 
 group :test do
