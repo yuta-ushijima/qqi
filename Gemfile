@@ -34,7 +34,7 @@ group :development do
   gem "annotate"
   gem "capistrano", "~> 3.10", require: false
   gem "capistrano-bundler", "~> 1.5"
-  gem "capistrano-database-yml", "~> 1.0.0"
+  gem "capistrano-database-yml", "~> 1.0.1"
   gem "capistrano-rails", "~> 1.4", require: false
   gem "capistrano-rbenv", "~> 2.1"
   gem "capistrano3-unicorn"
