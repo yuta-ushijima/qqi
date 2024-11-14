@@ -16,7 +16,7 @@ gem "devise"
 gem "devise-i18n"
 gem "devise_token_auth", github: "lynndylanhurley/devise_token_auth"
 gem "rack-cors", require: "rack/cors"
-gem "rails-i18n"
+gem "rails-i18n", ">= 8.0.0"
 
 gem "active_model_serializers", "~> 0.10.0"
 gem "turbolinks", "~> 5"
